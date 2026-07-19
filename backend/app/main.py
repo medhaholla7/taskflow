@@ -12,9 +12,11 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="TaskFlow API")
 
+import os
+origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:5174").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173","http://localhost:5174"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
